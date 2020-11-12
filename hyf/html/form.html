@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册&登陆</title>
+    <link rel="stylesheet" href="../css/mycss.css">
+    <!-- <script src="../js/myjs.js"></script> -->
+</head>
+<style>
+    [v-clock] {
+        display: none;
+    }
+</style>
+
+
+<body><span id='app' v-clock>
+    <div id="table">
+        <div>
+            <table align="center" width="100%" cellpadding="10" cellspacing="10">
+                <tr valign="top" align="center">
+                    <th @click="cha1f" id="r">注册</th>
+                    <th @click="cha2f" id="l">登录</th>
+                </tr>
+            </table>
+
+        </div>
+        <div id="span11" v-show='cha1'>
+            <table align="center" width="100%" cellpadding="10" cellspacing="10">
+                <tr>
+                    <th colspan="2" size="+2">{{tip}}
+                        <p id='ms' style="color:red;font-size: x-small;">{{message2}}</p>
+                    </th>
+
+                </tr>
+                <form action="#">
+
+                    <tr>
+                        <td align="center" colspan="2"><input width="100" name="tel" type="email" v-model="mailorphone" @blur="mailorphonef" placeholder="邮箱&手机号码*">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><input name="passwd1" type="password" placeholder="输入密码*">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><input name="passwd2" type="password" placeholder="再输入一次密码*">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2">
+                            <button onclick="click1()" name="email" type="button" style="padding-bottom: 26px;width: 100px">
+                                注册
+                            </button>
+                        </td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+        <div id='span2' v-show='cha2'>
+            <table align="center" width="100%" cellpadding="10" cellspacing="10">
+
+                <tr>
+
+                    <td align="center" colspan="2">
+                    </td>
+                </tr>
+
+                <form action="#">
+                    <tr>
+                        <td align="center" colspan="2">
+                            <b id='ms' style="color:red;font-size: x-small;">{{message}}</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><input width="120" id="loginphone" name="phone" type="tel" @blur='re' @input="replace" placeholder="请输入手机号码*" v-model='value'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><span v-show='logway'><input name="passwd1" id='loginnu' style="width: 36%;" type="tel" @input="replace2" v-model='value2' placeholder="请输入验证码*">
+                            <span id='btn' style="padding-left: 10px;"><button id="button" style="width: 30%;height: 100%;" @click='timedown' >{{send}}</button></span>
+
+    </span>
+    <span v-if='!logway'><input  name="passwd1" type="password" placeholder="请输入密码*"></span>
+    </td>
+    </tr>
+    <tr>
+        <th colspan="2" size="+2"><span @click='logwayf' v-if='logway' style="color: skyblue;">使用密码登陆</span><span @click='logwayf' v-if='!logway' style="color: skyblue;">使用验证码登录</span></th>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">
+            <button id="myBtn" name="email" type="button" onclick="login()" style="padding-bottom: 26px;width: 100px">
+                            登录
+                        </button>
+        </td>
+    </tr>
+    </form>
+
+    </table>
+    </div>
+
+
+
+
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+
+        <!-- 弹窗内容 -->
+        <div class="modal-content" id="myModal2" @mouseup=''>
+
+            <span class="close">&times;</span>
+            <span><img  src="../images/Annotation 2020-11-12 190121.png" alt="" srcset=""><br><a href="#" style="font-size: xx-small;">切换图片</a></span><br>
+            <p style="font-size: xx-small;color:red;">{{codemessage}}</p>
+            <div style="height: 50px;"><input type="text" v-model='imgcode' placeholder="请输入图片中数字"></div>
+            <div style="height: 50px;"><button style="height: 100%;margin: auto;" @blur='codeblur' @click='sendmeg'>确认</button></div>
+        </div>
+
+    </div>
+    </span>
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: '',
+                message2: '',
+                isdi: false,
+                value: '',
+                value2: '',
+                send: "点击发送验证码",
+                t: 40,
+                cha1: false,
+                cha2: true,
+                logway: true,
+                mailorphone: '',
+                tip: "免费注册",
+                inter: '',
+                showwindow: false,
+                codeis: false,
+                imgcode: '',
+
+                imgnumber: 'vwO7',
+                codemessage: ''
+            },
+            methods: {
+
+
+
+                mailorphonef: function() {
+                    if (this.mailorphone == '') {
+                        this.tip = "免费注册"
+                        this.message2 = '';
+                    } else if (!(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(this.mailorphone)) && !(/^1[3456789]\d{9}$/.test(Number(this.mailorphone)))) {
+
+                        this.tip = ''
+                        this.message2 = "邮箱或手机号码格式错误"
+
+                    } else {
+                        this.tip = "免费注册"
+                        this.message2 = '';
+
+                    }
+
+                },
+                logwayf: function() {
+                    this.logway = !this.logway
+                },
+                replace: function() {
+                    this.value = this.value.replace(/[^\d]/g, '')
+                },
+                replace2: function() {
+                    this.value2 = this.value2.replace(/[^\d]/g, '')
+                },
+                login: function() {
+                    this.showwindow = !this.showwindow
+                },
+                sendmeg: function() {
+                    if (this.imgcode == '') {
+                        this.codemessage = '验证码为空'
+
+                    } else if (this.imgcode == this.imgnumber) {
+                        modal.style.display = "none";
+                        document.getElementById('button').disabled = true;
+                        document.getElementById('button').style.color = '#000';
+                        this.inter = setInterval(this.time, 1000)
+                    } else {
+                        this.codemessage = '验证码错误'
+                    }
+
+                },
+                codeblur: function() {
+                    if (this.imgcode == '') {
+                        this.codemessage = ''
+
+
+                    }
+                },
+                re: function() {
+                    if (this.value == '') {
+                        this.isdi = false;
+                        this.message = '';
+                    } else if (!(/^1[3456789]\d{9}$/.test(Number(this.value)))) {
+                        this.isdi = true;
+                        this.message = "手机号码格式错误"
+                    } else {
+                        this.isdi = false;
+                        this.message = '';
+
+                    }
+
+                },
+                time: function() {
+                    this.t--
+                        this.send = '(' + this.t + ')秒后重发'
+                    if (this.t <= 0) {
+                        clearInterval(this.inter)
+                        document.getElementById('button').disabled = false;
+                        this.send = "点击发送验证码"
+                        this.t = 40
+                    }
+
+                },
+                timedown: function() {
+
+                    if (true) {
+                        if (this.value == '') {
+                            this.isdi = true;
+                            this.message = '请输入手机号码';
+                        } else if (!(/^1[3456789]\d{9}$/.test(Number(this.value)))) {
+                            this.isdi = true;
+                            this.message = "手机号码格式错误"
+                        } else {
+                            modal.style.display = "block";
+                        }
+                    }
+
+                },
+                cha1f: function() {
+                    this.cha1 = true
+                    this.cha2 = false
+                    document.getElementById('r').style.backgroundColor = '#7aa6da';
+                    document.getElementById('l').style.backgroundColor = '#708090';
+                },
+                cha2f: function() {
+                    this.cha1 = false
+                    this.cha2 = true
+                    document.getElementById('l').style.backgroundColor = '#7aa6da';
+                    document.getElementById('r').style.backgroundColor = '#708090';
+                }
+
+
+            }
+
+
+        })
+
+        // 获取弹窗
+        var modal = document.getElementById('myModal');
+
+        // 打开弹窗的按钮对象
+        var btn = document.getElementById("myBtn");
+
+
+        var span = document.querySelector('.close');
+
+
+
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // // 在用户点击其他地方时，关闭弹窗
+        // window.onclick = function(event) {
+        //     if (event.target == modal) {
+        //         modal.style.display = "none";
+        //     }
+        // }
+    </script>
+</body>
+
+</html>
