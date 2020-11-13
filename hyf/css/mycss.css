@@ -1,0 +1,102 @@
+html {
+    background-image: url("../images/83235k.png");
+}
+
+#table {
+    margin-top: 100px;
+    border-radius: 15px;
+    opacity: 0.8;
+    user-select: none;
+    width: 420px;
+    height: 400px;
+    background-color: #708090;
+    margin: auto;
+    position: absolute;
+    left: 33%;
+    top: 100px;
+}
+
+#span1 {
+    display: none;
+}
+
+#l {
+    background-color: #7aa6da;
+}
+
+input,
+button {
+    outline: none;
+    opacity: 1;
+    width: 70%;
+    height: 20px;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #fff;
+    border: #7aa6da;
+}
+
+input:hover {
+    cursor: default;
+}
+
+button {
+    outline-color: tan;
+    background-color: #67cdcc;
+}
+
+th {
+    border-radius: 5px;
+}
+
+
+/* 弹窗 (background) */
+
+.modal {
+    display: none;
+    /* 默认隐藏 */
+    position: fixed;
+    /* 固定定位 */
+    z-index: 1;
+    /* 设置在顶层 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* 弹窗内容 */
+
+.modal-content {
+    margin: auto;
+    border-radius: 5%;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 250px;
+    height: 250px;
+}
+
+
+/* 关闭按钮 */
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+</style>
