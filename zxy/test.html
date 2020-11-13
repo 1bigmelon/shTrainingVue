@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>二维码输入</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    *{margin: 0;padding: 0;}
+
+    body{
+      font-family: '微软雅黑';
+    }
+
+    .app{
+      background: #4FC08D;
+      padding: 20px;
+      width: 500px;
+      margin: auto;
+    }
+
+    .v-code {/*抄了一个css...*/
+      margin-top: 20px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      position: relative;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .v-code input {
+      position: absolute;
+      top: -100%;
+      left: -666666px;
+      opacity: 0;
+    }
+
+    .v-code .line{
+      position: relative;
+      width: 50px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      font-size: 28px;
+      border-bottom: 1px solid #2B2B2B;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="app">
+    <h2>验证码:</h2>
+    <div class="v-code">
+      <input
+      id="vcode"
+      type="tel"
+      maxlength="4"
+      v-model="aCodes">
+
+      <label
+        for="vcode"
+        class="line"
+        v-for="item,index in codeLength"
+        v-text="codeArr[index]"
+        >
+      </label>
+    </div>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        aCodes: '',
+        codeLength: 4,
+      },
+      computed: {
+        codeArr(){
+          return this.aCodes.split('')
+        }
+      }
+    })
+  </script>
+</body>
+</html>
+<!-- 最近太忙了，参考了网上的修修补补写的，以后有时间的话会进一步改进的！！！ -->
