@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+		<style>
+			input {
+                color:#333;
+                line-height:normal;
+                font-family:"Microsoft YaHei",Tahoma,Verdana,SimSun;
+                font-style:normal;
+                font-variant:normal;
+                font-size-adjust:none;
+                font-stretch:normal;
+                font-weight:normal;
+                margin-top:0px;
+                margin-bottom:0px;
+                margin-left:0px;
+                padding-top:4px;
+                padding-right:4px;
+                padding-bottom:4px;
+                padding-left:4px;
+                font-size:15px;
+                outline-width:medium;
+                outline-style:none;
+                outline-color:invert;
+                border-top-left-radius:3px;
+                border-top-right-radius:3px;
+                border-bottom-left-radius:3px;
+                border-bottom-right-radius:3px;
+                text-shadow:0px 1px 2px #fff;
+                background-origin:padding-box;
+                background-clip:border-box;
+                background-color:rgb(255, 255, 255);
+                margin-right:8px;
+				border: #cbe9ff;
+                border-top-width:1px;
+                border-right-width:1px;
+                border-bottom-width:1px;
+                border-left-width:1px;
+                border-top-style:solid;
+                border-right-style:solid;
+                border-bottom-style:solid;
+                border-left-style:solid;
+			}
+			.container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin: -80px 0 0 -135px;
+                padding: 10px;
+                text-align: center;
+            }
+			.container1 {
+                position: absolute;
+                top: 33%;
+                left: 50%;
+                margin: -80px 0 0 -135px;
+                padding: 10px;
+                text-align: center;
+            }
+            .container p{
+                font-family: "微软雅黑";
+                color: #888;
+            }
+            .val-box {
+                display: inline-block;
+                height: 40px;
+                width: 216px;
+                text-align: center;
+                position: relative;
+                background: #FFFFFF;
+            }
+
+            .val-box input[type=text] {
+                position: absolute;
+                left: 0;
+                top: 0;
+				border: 0px;
+                height: 34px;
+                width: 212px;
+                opacity: 0.9;
+                z-index: -999;
+                outline: none;
+            }
+
+            .val-box div {
+                height: 34px;
+                width: 28px;
+                border: 1px solid #DDD;
+                border-radius: 5px;
+                float: left;
+                margin: 2px 3px;
+                z-index: 5;
+                font-size: 1.5em;
+                font-family: arial;
+                font-weight: 530;
+                text-align: center;
+                line-height: 1.5em;
+                cursor: text;
+            }
+            .val-box .available {
+                border-color: #0081db;
+            }
+
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+            $(() => {
+                var valCodeInput = $('#val-code-input');
+                var valCodeItems = $("div[name='val-item']");
+                var regex = /^[\d]+$/;
+                var valCodeLength = 0;
+                $('#val-box').on('click',()=>{
+                    valCodeInput.focus();
+                })
+                valCodeInput.on('input propertychange change', (e) => {
+                    valCodeLength = valCodeInput.val().length;
+                    if(valCodeInput.val() && regex.test(valCodeInput.val())) {
+                        $(valCodeItems[valCodeLength - 1]).addClass('available');
+                        $(valCodeItems[valCodeLength - 1]).text(valCodeInput.val().substring(valCodeLength - 1, valCodeLength));
+                    }
+                })
+                $(this).on('keyup', (e) => {
+                    if(e.keyCode === 8) {
+                        $(valCodeItems[valCodeLength]).removeClass('available');
+                        $(valCodeItems[valCodeLength]).text("");
+                    }
+                });
+            })
+            function checkForNum(obj) {
+                obj.value = obj.value.replace(/[\D]/g, '');
+            }
+        </script>
+		<script type="text/javascript"> 
+			var countdown=60; 
+			function settime(obj) { 
+			    if (countdown == 0) { 
+			        obj.removeAttribute("disabled");    
+			        obj.value="免费获取验证码"; 
+			        countdown = 60; 
+			        return;
+			    } else { 
+			        obj.setAttribute("disabled", true); 
+			        obj.value="重新发送(" + countdown + "s)"; 
+			        countdown--; 
+			    } 
+			setTimeout(function() { 
+			    settime(obj) }
+			    ,1000) 
+			}
+			  
+		</script>
+	<div class="container1" id="test">
+		<div >
+		<h2>输入电话号码</h2>
+		</div>
+		<div style="margin-left: 20px;">
+		<input />
+		</div>
+		<div style="margin: 10px;">
+		<input type="button" id="btn" value="免费获取验证码" onclick="settime(this)" />  
+		</div>
+	</div>
+	<div class="container" id="test" >
+		<h2>请输入验证码</h2>
+		<div class="val-box" id="val-box">
+			<input id="val-code-input" type="text" maxlength="6" onkeyup="checkForNum(this)"  onselectstart="return false;" onblur="checkForNum(this)" />
+			<div name="val-item"></div>
+			<div name="val-item"></div>
+			<div name="val-item"></div>
+			<div name="val-item"></div>
+			<div name="val-item"></div>
+			<div name="val-item"></div>
+		</div>
+		<div style="margin: 10px;">
+			<button id="demo" type="button" onclick="displayDate()">提交验证码</button>
+			<script>
+				function displayDate(){
+					document.getElementById("demo").innerHTML="提交成功";
+				}
+				</script>  
+			</div>
+	
+	</div>
+	</body>
+</html>
