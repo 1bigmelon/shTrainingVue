@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>短信验证码输入框</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <script type="text/javascript" src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+        <script type="text/javascript">
+            data:{
+                return {    
+                    smsCode:'',
+                    code:new Array(5),
+                    codeId:['first','second','third','forth','fifth']
+                    }
+            },
+            watch:{
+                code:function(newValue){
+                let tempValue=''
+                for(let i=0;i<newValue.length;i++){
+                    if(i==5){
+                    break
+                }
+                if(newValue[i]){
+                    tempValue=tempValue+newValue[i] 
+                }
+                }
+                this.smsCode=tempValue
+                document.getElementById(this.codeId[4]).focus()
+                }
+            },
+        </script>
+    </head>
+    <body>
+        <div class="code">
+            <input id="first" class="inputStyle" v-model="code[0]"
+            style="border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;"
+            type="text" maxlength="1"/>
+            <input id="second" class="inputStyle" v-model="code[1]"style="border-left:1px solid #c6c6c6;" type="text" maxlength="1"/>
+            <input id="third" class="inputStyle" v-model="code[2]"style="border-left:1px solid #c6c6c6;" type="text" maxlength="1"/>
+            <input id="forth" class="inputStyle" v-model="code[3]" style="border-left:1px solid #c6c6c6;" type="text" maxlength="1"/>
+            <input id="fifth"class="inputStyle" v-model="code[4]"
+            style="border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+            border-left:1px solid #c6c6c6;" 
+            maxlength="1"
+            type="text"/>
+          </div>
+    </body>
+    
+</html>
